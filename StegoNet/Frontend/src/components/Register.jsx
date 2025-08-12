@@ -12,7 +12,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/register', { username, password });
+      await axios.post('https://stegonet-4.onrender.com/api/register', { username, password });
       setMessage('Registered successfully! Please login.');
       setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
