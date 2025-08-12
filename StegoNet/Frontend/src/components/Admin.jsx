@@ -8,11 +8,11 @@ function Admin({ handleLogout }) {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await axios.get('http://localhost:5000/api/users');
+      const response = await axios.get('https://stegonet-4.onrender.com/api/users');
       setUsers(response.data.filter(u => u !== 'admin'));
     };
     const fetchMessages = async () => {
-      const response = await axios.get('http://localhost:5000/api/all-messages');
+      const response = await axios.get('https://stegonet-4.onrender.com/api/all-messages');
       setMessages(response.data);
     };
     fetchUsers();
@@ -21,7 +21,7 @@ function Admin({ handleLogout }) {
 
   const handleRemoveUser = async (username) => {
     try {
-      await axios.delete(`http://localhost:5000/api/remove-user/${username}`);
+      await axios.delete(`https://stegonet-4.onrender.com/api/remove-user/${username}`);
       setUsers(users.filter(u => u !== username));
       setMessages(messages.filter(m => m.sender !== username && m.receiver !== username));
       setMessage(`User ${username} removed!`);
@@ -33,7 +33,7 @@ function Admin({ handleLogout }) {
 
   const handleRemoveImage = async (msgId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/delete-image/${msgId}`);
+      await axios.delete(`https://stegonet-4.onrender.com/api/delete-image/${msgId}`);
       setMessages(messages.filter(m => m.id !== msgId));
       setMessage(`Image ${msgId} removed!`);
       setTimeout(() => setMessage(''), 3000);
