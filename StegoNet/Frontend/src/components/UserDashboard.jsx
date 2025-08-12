@@ -16,7 +16,7 @@ function UserDashboard({ user, handleLogout }) {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/users');
+        const response = await axios.get('https://stegonet-4.onrender.com/api/users');
         setUsers(response.data.filter(u => u !== user.username));
       } catch (err) {
         setMessage('Error fetching users: ' + (err.response?.data?.error || err.message));
@@ -24,7 +24,7 @@ function UserDashboard({ user, handleLogout }) {
     };
     const fetchReceivedImages = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/received-images/${user.username}`);
+        const response = await axios.get(`https://stegonet-4.onrender.com/api/received-images/${user.username}`);
         setReceivedImages(response.data);
       } catch (err) {
         setMessage('Error fetching received images: ' + (err.response?.data?.error || err.message));
@@ -48,11 +48,11 @@ function UserDashboard({ user, handleLogout }) {
 
     try {
       console.log('Sending stego image with:', { sender: user.username, receiver, coverImage, secretImage });
-      const response = await axios.post('http://localhost:5000/api/send-stego', formData);
+      const response = await axios.post('https://stegonet-4.onrender.com/api/send-stego', formData);
       setStegoImage(response.data.stego_image);
       setMessage(response.data.message);
       setTimeout(() => setMessage(''), 5000);
-      const updatedImages = await axios.get(`http://localhost:5000/api/received-images/${user.username}`);
+      const updatedImages = await axios.get(`https://stegonet-4.onrender.com/api/received-images/${user.username}`);
       setReceivedImages(updatedImages.data);
     } catch (err) {
       console.error('Error sending stego image:', err.response?.data);
@@ -68,7 +68,7 @@ function UserDashboard({ user, handleLogout }) {
     setMessage('');
 
     try {
-      const response = await axios.get(`http://localhost:5000/api/extract-secret/${msgId}`);
+      const response = await axios.get(`https://stegonet-4.onrender.com/api/extract-secret/${msgId}`);
       const link = document.createElement('a');
       link.href = `data:image/png;base64,${response.data.secret_image}`;
       link.download = 'secret_image.png';
@@ -89,7 +89,7 @@ function UserDashboard({ user, handleLogout }) {
     setMessage('');
 
     try {
-      await axios.delete(`http://localhost:5000/api/delete-image/${msgId}`);
+      await axios.delete(`https://stegonet-4.onrender.com/api/delete-image/${msgId}`);
       setReceivedImages(receivedImages.filter(img => img.id !== msgId));
       setMessage('Image deleted successfully!');
       setTimeout(() => setMessage(''), 3000);
