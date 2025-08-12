@@ -13,7 +13,7 @@ function Login({ setUser, setIsAdmin }) {
     e.preventDefault();
     try {
       const endpoint = isAdminLogin ? '/api/admin-login' : '/api/login';
-      const response = await axios.post(`http://localhost:5000${endpoint}`, { username, password });
+      const response = await axios.post(`https://stegonet-4.onrender.com${endpoint}`, { username, password });
 
       if (isAdminLogin) {
         setIsAdmin(true);
